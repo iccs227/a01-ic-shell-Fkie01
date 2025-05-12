@@ -4,29 +4,55 @@
  */
 
 #include "parser.hpp"
+#include "execute.hpp"
 #include <iostream>
+#include <fstream>
+#include <cstring>
+#include <cstdlib>
 #include <string>
 #include <vector>
 #include <sstream>
 #include <unistd.h>
 #include <sys/wait.h>
 
-int main(){
+int main(int argc, char *argv[]) {
+    std::istream *inputStream = &std::cin;
+    std::ifstream fileStream;
+    
+
+    if (argc == 2){
+        fileStream.open(argv[1]);
+        if(!fileStream.is_open()){
+            std::cerr << "Failed to open file: " << argv[1] << std::endl;
+            return 1;
+        }
+        inputStream = &fileStream;
+    }
+
     std::string input;
     std::string lastCommand;
     int exitCode = 0;
+
 
     std::cout << "  -------------welcome to icsh shell by me <;<--------------\n";
     
 
     while(true){
-        std::cout << "icsh $ ";
-        std::getline(std::cin, input);
+
+        if(inputStream == &std::cin){
+            std::cout << "icsh $ ";
+        }
+
+        if(!std::getline(*inputStream, input)){
+            if(!inputStream) break;
+        }
 
         // Handle !!
         if (input == "!!") {
-            if (lastCommand.empty())
+            if (lastCommand.empty()){
+                std::cerr << "No previous command to repeat." << std::endl;
                 continue;
+            }
             std::cout << lastCommand << std::endl;
             input = lastCommand;
         } else {
@@ -50,29 +76,10 @@ int main(){
             }
             std::cout << "bye\n";
             break;
-            
+
         }
 
-        std::vector<char*> cargs;
-        for (auto &arg : args) {
-            cargs.push_back(const_cast<char*>(arg.c_str()));
-        }
-        cargs.push_back(nullptr);
-
-        pid_t pid = fork();
-        if (pid == 0) {
-      // child process
-            if (execvp(cargs[0], cargs.data()) == -1) {
-                // perror("Bad Command");
-                std::cout << "Bad command: noob! \n";
-            }
-            exit(EXIT_FAILURE);
-        } else if (pid > 0) {
-            // parent process
-            waitpid(pid, nullptr, 0);
-        } else {
-            perror("fork failed");
-        }
+        exitCode = executeCommand(args);
         
     }
     return exitCode;
