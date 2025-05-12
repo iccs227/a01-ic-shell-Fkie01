@@ -50,7 +50,7 @@ int executeCommand(const std::vector<std::string> &args, bool background) {
         else {
             int status;
             waitpid(pid, &status, 0);
-            std::cout << status << std::endl;
+            // std::cout << status << std::endl;
             if (WIFEXITED(status)) {
                 exitCode = WEXITSTATUS(status);
             } else if(WIFSIGNALED(status)) {
@@ -68,6 +68,6 @@ int executeCommand(const std::vector<std::string> &args, bool background) {
         perror("fork failed");
         std::cerr << "Child process terminated abnormally" << std::endl;
     } 
-    std::cout << lastExitCode << std::endl;
+    // std::cout << lastExitCode << std::endl;
     return lastExitCode;
 }

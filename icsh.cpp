@@ -8,6 +8,7 @@
 #include "signalHandle.hpp"
 #include "isRedirection.hpp"
 #include "jobs.hpp"
+#include "runnerConfiguer.hpp"
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -77,6 +78,7 @@ int main(int argc, char *argv[]) {
         } else {
             lastCommand = input;
         }
+        input = checkDoubleBang(input, lastCommand);
 
         
 
@@ -84,15 +86,16 @@ int main(int argc, char *argv[]) {
         if (args.empty()) {
             continue;
         }
-        // Check for redirection
-        if (args.size() >= 1) {
-            for (size_t i = 1; i < args.size(); ++i) {
-                if (std::string(args[i]) == ">" || std::string(args[i]) == "<") {
-                isRedirection = true;
-                break;
-                }
-            }
-        }
+        // // Check for redirection
+        // if (args.size() >= 1) {
+        //     for (size_t i = 1; i < args.size(); ++i) {
+        //         if (std::string(args[i]) == ">" || std::string(args[i]) == "<") {
+        //         isRedirection = true;
+        //         break;
+        //         }
+        //     }
+        // }
+        isRedirection = checkIfRedirection(args);
 
         
 
@@ -109,6 +112,7 @@ int main(int argc, char *argv[]) {
             break;
         }
 
+
         // Handle echo $?
         if (args.size() >= 2 && strcmp(args[0].c_str(), "echo") == 0 && args[1] == "$?") {
             if (lastExitCode != 0){
@@ -122,20 +126,22 @@ int main(int argc, char *argv[]) {
             
 
         }
+        // // Handle echo command
+        // if (args.size() >= 1 && strcmp(args[0].c_str(), "echo") == 0) {
+        //     for (size_t i = 1; i < args.size(); ++i) {
+        //         std::cout << args[i] << " ";
+        //     }
+        //     std::cout << std::endl;
+        //     continue;
+        // }
+        // echoCommand(args);
 
-        // Handle echo command
-        if (args.size() >= 1 && strcmp(args[0].c_str(), "echo") == 0) {
-            for (size_t i = 1; i < args.size(); ++i) {
-                std::cout << args[i] << " ";
-            }
-            std::cout << std::endl;
-            continue;
-        }
+        // if (args.size() >= 1 && strcmp(args[0].c_str(), "jobs") == 0) { // print jobs 
+        //     print_jobs();
+        //     continue;
+        // }
 
-        if (args.size() >= 1 && strcmp(args[0].c_str(), "jobs") == 0) { // print jobs 
-            print_jobs();
-            continue;
-        }
+
 
         if (args.size() >= 1 && strcmp(args[0].c_str(), "fg") == 0) { // bring to foreground
             if (args.size() == 2) {
@@ -183,7 +189,11 @@ int main(int argc, char *argv[]) {
         if(isRedirection){
             parse_command(command_line, argss, &redir_type, &fileName);
             handleRedirectionAndExecute(argss, redir_type, fileName);
-        } else {
+        } else if(args.size() >= 1 && strcmp(args[0].c_str(), "echo") == 0){
+            echoCommand(args);
+        } else if (args.size() >= 1 && strcmp(args[0].c_str(), "jobs") == 0){
+            print_jobs();
+        }else {
             exitCode = executeCommand(args, background);
         }
 
