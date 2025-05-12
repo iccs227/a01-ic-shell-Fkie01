@@ -4,5 +4,7 @@
 #include <string>
 #include <vector>
 
-int executeCommand(const std::vector<std::string> &args);
+extern int lastExitCode;
+
+int executeCommand(const std::vector<std::string> &args, bool isBackground);
 #endif // EXECUTE_HPP
