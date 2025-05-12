@@ -1,13 +1,18 @@
-CC=gcc
-CFLAGS=-Wall -g 
-BINARY=icsh
+# Makefile for building a simple terminal (shell) in C++
 
-all: icsh
+CXX = g++
+CXXFLAGS = -Wall -Wextra -std=c++17
+TARGET = icsh
+SRC = icsh.cpp parser.cpp 
+OBJ = $(SRC:.cpp=.o)
 
-icsh: icsh.c
-	$(CC) -o $(BINARY) $(CFLAGS) $<
+all: $(TARGET)
 
-.PHONY: clean
+$(TARGET): $(SRC)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC)
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(BINARY)
+	rm -f $(TARGET)
