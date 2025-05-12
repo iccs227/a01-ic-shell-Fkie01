@@ -5,6 +5,7 @@
 
 #include "parser.hpp"
 #include "execute.hpp"
+#include "signalHandle.hpp"
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -16,6 +17,7 @@
 #include <sys/wait.h>
 
 int main(int argc, char *argv[]) {
+    setupSignalHandlers();
     std::istream *inputStream = &std::cin;
     std::ifstream fileStream;
     

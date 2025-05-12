@@ -6,32 +6,33 @@
 #include <unistd.h>
 
 int executeCommand(const std::vector<std::string> &args) {
-  if (args.empty())
-    return 0;
+    if (args.empty())
+        return 0;
 
-  std::vector<char *> c_args;
-  for (const auto &arg : args) {
+    std::vector<char *> c_args;
+    for (const auto &arg : args) {
     c_args.push_back(strdup(arg.c_str()));
-  }
-  c_args.push_back(nullptr); // Null-terminate the array
+    }
+    c_args.push_back(nullptr); // Null-terminate the array
 
-  pid_t pid = fork();
-  int exitCode = 0;
+    pid_t pid = fork();
+    int exitCode = 0;
 
     if (pid == 0) {
     if (execvp(c_args[0], c_args.data())) { // Execute the command
-      perror("execvp failed");
-      std::cerr << "Error executing command: " << c_args[0] << std::endl;
-      exit(EXIT_FAILURE);
+        perror("execvp failed");
+        std::cerr << "Error executing command: " << c_args[0] << std::endl;
+        exit(EXIT_FAILURE);
     }
-  } else if (pid > 0) {
+    } else if (pid > 0) {
         int status;
         waitpid(pid, &status, 0);
-    if (WIFEXITED(status)) {
-        exitCode = WEXITSTATUS(status);
-    } else {
-        perror("fork failed");
-        std::cerr << "Child process terminated abnormally" << std::endl;
-    } 
+        if (WIFEXITED(status)) {
+            exitCode = WEXITSTATUS(status);
+        } else {
+            perror("fork failed");
+            std::cerr << "Child process terminated abnormally" << std::endl;
+        } 
+    }
     return exitCode;
 }
