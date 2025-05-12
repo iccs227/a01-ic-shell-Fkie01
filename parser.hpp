@@ -4,6 +4,13 @@
 #include <string>
 #include <vector>
 
+enum RedirectionType {
+    NONE,
+    INPUT,
+    OUTPUT
+};
+
 std::vector<std::string> parseInput(const std::string &input);
+void parse_command(char *command_line, char **args, RedirectionType *redir_type, char **fileName);
 
 #endif
