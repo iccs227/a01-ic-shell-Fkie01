@@ -50,6 +50,7 @@ int main(){
             }
             std::cout << "bye\n";
             break;
+            
         }
 
         std::vector<char*> cargs;
