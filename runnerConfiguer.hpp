@@ -17,9 +17,6 @@
 #include <csignal>
 #include <unistd.h>
 
-std::string checkDoubleBang(std::string &input, std::string &lastCommand);
-bool checkIfRedirection(std::vector<std::string> &args);
-void echoCommand(std::vector<std::string> &args);
-void printTheJob(std::vector<std::string> &args);
+int runnerConfig(std::istream *inputStream);
 
 #endif // RUNNER_CONFIGUER_HPP
