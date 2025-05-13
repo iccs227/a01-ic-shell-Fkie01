@@ -30,6 +30,8 @@ int runnerConfig(std::istream *inputStream){
     std::string input;
     std::string output;
     std::string lastCommand;
+    char cwd[PATH_MAX];
+    char lastDir[PATH_MAX] = {0};
     int exitCode = 0;
     while(true){
         bool isRedirection = false;
@@ -69,6 +71,9 @@ int runnerConfig(std::istream *inputStream){
             lastCommand = input;
         }
 
+        
+
+
 
         
 
@@ -76,6 +81,8 @@ int runnerConfig(std::istream *inputStream){
         if (args.empty()) {
             continue;
         }
+
+       
         // Check for redirection
         if (args.size() >= 1) {
             for (size_t i = 1; i < args.size(); ++i) {
@@ -190,6 +197,9 @@ int runnerConfig(std::istream *inputStream){
         } else if (isPipe){
             parse_PipeCommand(command_line, args1, args2);
             handlePipeAndExecute(args1, args2);
+        } else if(strcmp(args[0].c_str(), "cd")==0){
+            changeDirectory(args[1]);
+            continue;
         } else {
             exitCode = executeCommand(args, background);
         }

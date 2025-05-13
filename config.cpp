@@ -143,3 +143,18 @@ std::string getGitBranch() {
     }
     return branch;
 }
+
+void changeDirectory(const std::string& path) {
+    if(path.empty()) {
+        char *home = getenv("HOME");
+        if(chdir(home) != 0) {
+            perror("chdir");
+        }
+    }
+    else {
+        if (chdir(path.c_str()) != 0) {
+            perror("chdir");
+        }
+    }
+}
+
