@@ -8,5 +8,7 @@
 void loadConfig();
 bool configEnabled(const std::string& key);
 void showPrompt();
+std::string getCurrentTime();
+std::string getGitBranch();
 
 #endif // CONFIG_HPP

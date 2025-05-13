@@ -19,6 +19,7 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <chrono>
+#include <ctime>
 
 
 #define MAX_LINE 1024

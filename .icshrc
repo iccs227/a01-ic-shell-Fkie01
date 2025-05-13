@@ -1,2 +1,3 @@
-show_prompt_path=1
+show_prompt_path=0
 show_exec_time=1
+show_git_branch=1
