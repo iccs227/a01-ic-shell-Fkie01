@@ -3,7 +3,7 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++17
 TARGET = icsh
-SRC = icsh.cpp parser.cpp execute.cpp signalHandle.cpp isRedirection.cpp jobs.cpp runnerConfiguer.cpp
+SRC = icsh.cpp parser.cpp execute.cpp signalHandle.cpp isRedirection.cpp jobs.cpp runnerConfiguer.cpp config.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(TARGET)

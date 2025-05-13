@@ -4,6 +4,7 @@
  */
 
 #include "parser.hpp"
+#include "config.hpp"
 #include "execute.hpp"
 #include "signalHandle.hpp"
 #include "isRedirection.hpp"
@@ -20,12 +21,14 @@
 #include <csignal>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <stdlib.h>
 
 #define MAX_LINE 1024
 #define MAX_ARGS 64
 
 int main(int argc, char *argv[]) {
     setupSignalHandlers(); // handle ctrl-c and ctrl-z
+    loadConfig(); // load config from ~/.myshrc
     std::istream *inputStream = &std::cin;
     std::ifstream fileStream;
     int exitCode = 0;
@@ -44,8 +47,10 @@ int main(int argc, char *argv[]) {
     
     
 
-
-    std::cout << "  -------------welcome to icsh shell by me ;_; <--------------\n";
+    // write(STDOUT_FILENO, "\033[1;30;47m", 10); // Bright cyan text on red background
+    write(STDOUT_FILENO, "  -------------welcome to icsh shell by me ;_; <--------------\n", 66);
+    // write(STDOUT_FILENO, "\033[0m", 4);        // Reset to normal
+    // std::cout << "  -------------welcome to icsh shell by me ;_; <--------------\n";
     
     // std::string input;
     // std::string output;

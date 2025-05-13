@@ -1,5 +1,6 @@
 
-
+#include "runnerConfiguer.hpp"
+#include "config.hpp"
 #include "parser.hpp"
 #include "execute.hpp"
 #include "signalHandle.hpp"
@@ -16,6 +17,9 @@
 #include <csignal>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <stdlib.h>
+#include <chrono>
+
 
 #define MAX_LINE 1024
 #define MAX_ARGS 64
@@ -33,7 +37,14 @@ int runnerConfig(std::istream *inputStream){
 
         if(inputStream == &std::cin){
             // std::cout << "icsh $ ";
-            write(STDOUT_FILENO, "icsh $ ", 7);
+            // write(STDOUT_FILENO, "icsh $ ", 7);
+            // write(STDOUT_FILENO, "\033[1;30;47m", 10); // Bright cyan text on red background
+            // write(STDOUT_FILENO, "icsh $ ", 7);
+            // write(STDOUT_FILENO, showPrompt, 7);
+            showPrompt();
+            // write(STDOUT_FILENO, "\033[0m", 4);        // Reset to normal
+
+
             std::cout << std::flush;
         }
 
@@ -116,7 +127,10 @@ int runnerConfig(std::istream *inputStream){
             continue;
         }
 
-
+        std::chrono::high_resolution_clock::time_point start, end;
+        if (configEnabled("show_exec_time")) {
+            start = std::chrono::high_resolution_clock::now();
+        }
         if (args.size() >= 1 && strcmp(args[0].c_str(), "jobs") == 0) { // print jobs 
             print_jobs();
             continue;
@@ -177,6 +191,16 @@ int runnerConfig(std::istream *inputStream){
             handlePipeAndExecute(args1, args2);
         } else {
             exitCode = executeCommand(args, background);
+        }
+        if(configEnabled("show_exec_time")) {
+            end = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+            std::cout << "\033[1;30;44m";  // Start color
+            std::cout << "⏱ Execution time: " << duration << " ms ";
+            std::cout << "\033[0m";        // Reset color
+            std::cout << std::flush;
+            
+
         }
 
         
