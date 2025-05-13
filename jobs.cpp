@@ -1,4 +1,5 @@
 #include "jobs.hpp"
+#include "config.hpp"
 #include <iostream>
 #include <unistd.h>
 #include <sys/types.h>
@@ -33,7 +34,8 @@ void jobs_handler(int) {
                     fflush(stdout);
 
                     if(it->isBackground) {
-                        std::cout << "icsh $ " << std::flush;
+                        // std::cout << "icsh $ " << std::flush;
+                        showPrompt();
                     } else {
                         std::cout << "\n" << std::flush;
                     }

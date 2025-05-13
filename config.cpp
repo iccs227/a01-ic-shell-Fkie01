@@ -46,6 +46,7 @@ void showPrompt() {
         if (configEnabled("show_prompt_path")) {
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
+            std::cout << " "; 
             std::cout << "\033[1;31;43m"; // Bright cyan text on red background
             std::cout << " "  <<  currentTime << " " ;
             std::cout << "\033[0m"; // Reset to normal
@@ -57,9 +58,11 @@ void showPrompt() {
 
 
             std::cout << "\033[1;30;47m"; // Bright cyan text on red background
-            std::cout <<  "" << cwd << "  icsh" << " $ ";
+            std::cout <<  " " << cwd << "  icsh" << " $ ";
             std::cout << "\033[0m"; // Reset to normal
+            std::cout << std::endl;
         } else {
+            std::cout << " "; 
             std::cout << "\033[1;31;43m"; // Bright cyan text on red background
             std::cout << " "  <<  currentTime << " " ;
             std::cout << "\033[0m"; // Reset to normal
@@ -74,28 +77,44 @@ void showPrompt() {
             std::cout << "\033[1;30;47m"; // Bright cyan text on red background
             std::cout <<"  icsh $ ";
             std::cout << "\033[0m"; // Reset to normal
+            std::cout << std::endl;
         }
     } else {
         if (configEnabled("show_prompt_path")) {
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
+            std::cout << " "; 
             std::cout << "\033[1;31;43m"; // Bright cyan text on red background
-            std::cout <<  currentTime;
+            std::cout << " "  <<  currentTime << " " ;
             std::cout << "\033[0m"; // Reset to normal
+
+            // std::cout << "\033[1;30;42m"; // Bright cyan text on red background
+            // std::cout << " " <<  branch << " " ;
+            // std::cout << "\033[0m"; // Reset to normal
+
 
 
             std::cout << "\033[1;30;47m"; // Bright cyan text on red background
-            std::cout <<  "" << cwd << "  icsh" << " $ ";
+            std::cout <<  " " << cwd << "  icsh" << " $ ";
             std::cout << "\033[0m"; // Reset to normal
+            std::cout << std::endl;
         } else {
+            std::cout << " "; 
             std::cout << "\033[1;31;43m"; // Bright cyan text on red background
-            std::cout <<  currentTime;
+            std::cout << " "  <<  currentTime << " " ;
             std::cout << "\033[0m"; // Reset to normal
+
+
+            // std::cout << "\033[1;30;42m"; // Bright cyan text on red background
+            // std::cout << " " <<  branch << " " ;
+            // std::cout << "\033[0m"; // Reset to normal
+
 
 
             std::cout << "\033[1;30;47m"; // Bright cyan text on red background
             std::cout <<"  icsh $ ";
             std::cout << "\033[0m"; // Reset to normal
+            std::cout << std::endl;
         }
     }
 }
