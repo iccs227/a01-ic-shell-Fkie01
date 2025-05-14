@@ -71,6 +71,9 @@ int runnerConfig(std::istream *inputStream){
             lastCommand = input;
         }
 
+        getcwd(cwd, sizeof(cwd));
+        // std::cout << "Current directory: " << cwd << std::endl;
+
         
 
 
@@ -81,6 +84,28 @@ int runnerConfig(std::istream *inputStream){
         if (args.empty()) {
             continue;
         }
+        
+        // Handle back command
+        if (args[0] == "back") {
+            // getcwd(cwd, sizeof(cwd));
+            
+            // std::cout << "Going back to previous directory" << std::endl;
+            if (lastDir[0] == '\0') {
+                // std::cerr << "No previous directory to go back to." << std::endl;
+                continue;
+            } else {
+                // std::cout << "not else" << std::endl;
+                if (chdir(lastDir) != 0) {
+                    perror("chdir");
+                    continue;
+                }
+                continue;
+            }
+            // strncpy(lastDir, cwd, sizeof(lastDir));
+            // continue;
+        }
+        strncpy(lastDir, cwd, sizeof(lastDir));
+        // std::cout << "Last directory: " << lastDir << std::endl;
 
        
         // Check for redirection
@@ -202,6 +227,7 @@ int runnerConfig(std::istream *inputStream){
             continue;
         } else {
             exitCode = executeCommand(args, background);
+            // std::cout << "executeCommand exit code: " <<  std::endl;
         }
         if(configEnabled("show_exec_time")) {
             end = std::chrono::high_resolution_clock::now();

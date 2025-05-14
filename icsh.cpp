@@ -41,6 +41,7 @@ int main(int argc, char *argv[]) {
             std::cerr << "Failed to open file: " << argv[1] << std::endl;
             return 1;
         }
+        // std::cout << "Running from file: " << argv[1] << std::endl;
         inputStream = &fileStream;
     }
 
@@ -51,7 +52,7 @@ int main(int argc, char *argv[]) {
     write(STDOUT_FILENO, "  -------------welcome to icsh shell by me ;_; <--------------\n", 66);
     // write(STDOUT_FILENO, "\033[0m", 4);        // Reset to normal
     // std::cout << "  -------------welcome to icsh shell by me ;_; <--------------\n";
-    
+    exitCode = runnerConfig(inputStream);
     // std::string input;
     // std::string output;
     // std::string lastCommand;
@@ -204,6 +205,6 @@ int main(int argc, char *argv[]) {
     //     exitCode = lastExitCode;
     // }
 
-    exitCode = runnerConfig(inputStream);
+    
     return exitCode;
 }

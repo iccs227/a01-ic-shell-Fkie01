@@ -60,6 +60,7 @@ void showPrompt() {
             std::cout << "\033[1;30;47m"; // Bright cyan text on red background
             std::cout <<  " " << cwd << "  icsh" << " $ ";
             std::cout << "\033[0m"; // Reset to normal
+            
             std::cout << std::endl;
         } else {
             std::cout << " "; 
@@ -77,6 +78,7 @@ void showPrompt() {
             std::cout << "\033[1;30;47m"; // Bright cyan text on red background
             std::cout <<"  icsh $ ";
             std::cout << "\033[0m"; // Reset to normal
+
             std::cout << std::endl;
         }
     } else {
@@ -97,6 +99,7 @@ void showPrompt() {
             std::cout << "\033[1;30;47m"; // Bright cyan text on red background
             std::cout <<  " " << cwd << "  icsh" << " $ ";
             std::cout << "\033[0m"; // Reset to normal
+
             std::cout << std::endl;
         } else {
             std::cout << " "; 
@@ -114,6 +117,7 @@ void showPrompt() {
             std::cout << "\033[1;30;47m"; // Bright cyan text on red background
             std::cout <<"  icsh $ ";
             std::cout << "\033[0m"; // Reset to normal
+            
             std::cout << std::endl;
         }
     }
