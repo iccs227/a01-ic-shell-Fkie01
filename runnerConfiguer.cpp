@@ -52,11 +52,15 @@ int runnerConfig(std::istream *inputStream){
         }
 
         if(!std::getline(*inputStream, input)){
-            if(!inputStream) break;
+            if(inputStream != &std::cin){ 
+                break;
+            } else {
+                std::cin.clear();
+                std::cout << std::endl;
+                continue;
+            }
 
-            std::cin.clear();
-            std::cout << std::endl;
-            continue;
+            
         }
 
         // Handle !!

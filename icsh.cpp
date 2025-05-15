@@ -41,170 +41,18 @@ int main(int argc, char *argv[]) {
             std::cerr << "Failed to open file: " << argv[1] << std::endl;
             return 1;
         }
-        // std::cout << "Running from file: " << argv[1] << std::endl;
+
         inputStream = &fileStream;
     }
 
     
     
 
-    // write(STDOUT_FILENO, "\033[1;30;47m", 10); // Bright cyan text on red background
+
     write(STDOUT_FILENO, "  -------------welcome to icsh shell by me ;_; <--------------\n", 66);
-    // write(STDOUT_FILENO, "\033[0m", 4);        // Reset to normal
-    // std::cout << "  -------------welcome to icsh shell by me ;_; <--------------\n";
+
     exitCode = runnerConfig(inputStream);
-    // std::string input;
-    // std::string output;
-    // std::string lastCommand;
-    // int exitCode = 0;
-    // while(true){
-    //     bool isRedirection = false;
-    //     bool background = false;
-
-    //     if(inputStream == &std::cin){
-    //         // std::cout << "icsh $ ";
-    //         write(STDOUT_FILENO, "icsh $ ", 7);
-    //         std::cout << std::flush;
-    //     }
-
-    //     if(!std::getline(*inputStream, input)){
-    //         if(!inputStream) break;
-
-    //         std::cin.clear();
-    //         std::cout << std::endl;
-    //         continue;
-    //     }
-
-    //     // Handle !!
-    //     if (input == "!!") {
-    //         if (lastCommand.empty()){
-    //             std::cerr << "No previous command to repeat." << std::endl;
-    //             continue;
-    //         }
-    //         std::cout << lastCommand << std::endl;
-    //         input = lastCommand;
-    //     } else {
-    //         lastCommand = input;
-    //     }
-
-
-        
-
-    //     std::vector<std::string> args = parseInput(input);
-    //     if (args.empty()) {
-    //         continue;
-    //     }
-    //     // Check for redirection
-    //     if (args.size() >= 1) {
-    //         for (size_t i = 1; i < args.size(); ++i) {
-    //             if (std::string(args[i]) == ">" || std::string(args[i]) == "<") {
-    //             isRedirection = true;
-    //             break;
-    //             }
-    //         }
-    //     }
-
-
-        
-
-    //     // Handle exit with optional code
-    //     if (args[0] == "exit") {
-    //         if (args.size() == 2) {
-    //             try {
-    //             exitCode = std::stoi(args[1]) & 0xFF;
-    //             } catch (...) {
-    //             exitCode = 0;
-    //             }
-    //         }
-    //         std::cout << "bye\n";
-    //         break;
-    //     }
-
-
-    //     // Handle echo $?
-    //     if (args.size() >= 2 && strcmp(args[0].c_str(), "echo") == 0 && args[1] == "$?") {
-    //         if (lastExitCode != 0){
-    //             std::cout << lastExitCode << std::endl;
-    //             lastExitCode = 0;
-    //             continue;
-    //         } else {
-    //             std::cout << lastExitCode << std::endl;
-    //             continue;
-    //         }
-            
-
-    //     }
-    //     // Handle echo command
-    //     if (args.size() >= 1 && strcmp(args[0].c_str(), "echo") == 0) {
-    //         for (size_t i = 1; i < args.size(); ++i) {
-    //             std::cout << args[i] << " ";
-    //         }
-    //         std::cout << std::endl;
-    //         continue;
-    //     }
-
-
-    //     if (args.size() >= 1 && strcmp(args[0].c_str(), "jobs") == 0) { // print jobs 
-    //         print_jobs();
-    //         continue;
-    //     }
-
-
-
-    //     if (args.size() >= 1 && strcmp(args[0].c_str(), "fg") == 0) { // bring to foreground
-    //         if (args.size() == 2) {
-
-    //             if (args[1][0] == '%') {
-    //             args[1].erase(0, 1); // Remove the '%' character
-    //             }
-
-    //             // std::cout << args[1] << std::endl;
-    //             int jobId = std::stoi(args[1]);
-                
-    //             bringToForeground(jobId);
-    //         } else {
-    //             std::cerr << "Usage: fg <job_id>\n";
-    //         }
-    //         continue;
-    //         }
-    //         if (args.size() >= 1 && strcmp(args[0].c_str(), "bg") == 0) { // bring to background
-    //             if (args.size() == 2) {
-    //                 if (args[1][0] == '%') {
-    //                 args[1].erase(0, 1); // Remove the '%' character
-    //                 }
-    //                 int jobId = std::stoi(args[1]);
-    //                 // std::cout << args[1] << std::endl;
-    //                 bringToBackground(jobId);
-    //             } else {
-    //                 std::cerr << "Usage: bg <job_id>\n";
-    //             }
-    //             continue;
-    //         }
-
-    //     if (!args.empty() && args.back() == "&") { // Check if the last argument is "&"
-    //         background = true;
-    //         args.pop_back();
-
-    //     }
-        
-
-    //     char command_line[MAX_LINE];
-    //     char *argss[MAX_ARGS];
-    //     RedirectionType redir_type;
-    //     char *fileName;
-    //     std::strncpy(command_line, input.c_str(), MAX_LINE);
-        
-    //     if(isRedirection){
-    //         parse_command(command_line, argss, &redir_type, &fileName);
-    //         handleRedirectionAndExecute(argss, redir_type, fileName);
-    //     }else {
-    //         exitCode = executeCommand(args, background);
-    //     }
-
-        
-    //     exitCode = lastExitCode;
-    // }
-
+    
     
     return exitCode;
 }
