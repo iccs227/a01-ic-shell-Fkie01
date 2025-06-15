@@ -13,12 +13,12 @@ int executeCommand(const std::vector<std::string> &args, bool background) {
     if (args.empty())
         return 0;
 
-    std::vector<char *> c_args;
+    std::vector<char *> c_args; // convert from string to char*
     for (const auto &arg : args) {
     c_args.push_back(strdup(arg.c_str()));
     }
 
-    std::vector<std::string> command;
+    std::vector<std::string> command; // Store the command for job management
     for(const auto &arg : args){
         command.push_back(arg);
     }
@@ -39,9 +39,10 @@ int executeCommand(const std::vector<std::string> &args, bool background) {
 
         }
     } else if (pid > 0) {
+        static int jobId = 1;
         if(background){
             setpgid(pid, pid); // Set the process group ID to the child process ID
-            static int jobId = 1;
+            // static int jobId = 1;
             std::cout << "[" << jobId << "] " << pid << "   "  << std::endl;
             jobs.push_back({jobId, pid, command, 0,background});
             jobId++;
@@ -49,7 +50,10 @@ int executeCommand(const std::vector<std::string> &args, bool background) {
         }
         else {
             int status;
+            jobs.push_back({jobId, pid, command, 0,background});
+            jobId++;
             waitpid(pid, &status, 0);
+
             // std::cout << status << std::endl;
             if (WIFEXITED(status)) {
                 exitCode = WEXITSTATUS(status);
