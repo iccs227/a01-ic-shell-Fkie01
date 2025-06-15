@@ -22,27 +22,27 @@ void signalHandler(int signum) {
   case SIGINT: {
     msg = "Signal Ctrl-C received.\n";
     //   if (foreground_pid > 0) kill(foreground_pid, SIGINT);
-    pid_t foreground_pid1 =
-        tcgetpgrp(STDIN_FILENO); // Get the foreground process group
+    // pid_t foreground_pid1 =
+    //     tcgetpgrp(STDIN_FILENO); // Get the foreground process group
 
-    if (foreground_pid1 > 0) {
-      // cout << "Foreground PID: " << foreground_pid << endl;
+    // if (foreground_pid1 > 0) {
+    //   // cout << "Foreground PID: " << foreground_pid << endl;
 
-      // Send SIGTSTP to suspend the foreground process
+    //   // Send SIGTSTP to suspend the foreground process
 
-      // Optionally update the job status to 'stopped'
-      for (auto &job : jobs) {
-        // if (job.pid == foreground_pid) {
-        if (job.isBackground == false) {
-          //   job.status = 1;  // Mark as stopped
-          //   job.isBackground = true; // Set to background
-          //   cout << "\n[" << job.id << "] " << job.pid << " suspended.\n";
-          kill(job.pid, SIGINT); // Suspend the process
-        }
-      }
-    } else {
-      cout << "No foreground process group found.\n";
-    }
+    //   // Optionally update the job status to 'stopped'
+    //   for (auto &job : jobs) {
+    //     // if (job.pid == foreground_pid) {
+    //     if (job.isBackground == false) {
+    //       //   job.status = 1;  // Mark as stopped
+    //       //   job.isBackground = true; // Set to background
+    //       //   cout << "\n[" << job.id << "] " << job.pid << " suspended.\n";
+    //       kill(job.pid, SIGINT); // Suspend the process
+    //     }
+    //   }
+    // } else {
+    //   cout << "No foreground process group found.\n";
+    // }
     break;
   }
 
