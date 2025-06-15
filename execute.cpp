@@ -39,10 +39,10 @@ int executeCommand(const std::vector<std::string> &args, bool background) {
 
         }
     } else if (pid > 0) {
-        static int jobId = 1;
+        // static int jobId = 1;
         if(background){
             setpgid(pid, pid); // Set the process group ID to the child process ID
-            // static int jobId = 1;
+            static int jobId = 1;
             std::cout << "[" << jobId << "] " << pid << "   "  << std::endl;
             jobs.push_back({jobId, pid, command, 0,background});
             jobId++;
@@ -50,10 +50,10 @@ int executeCommand(const std::vector<std::string> &args, bool background) {
         }
         else {
             int status;
-            if (command[0] == "sleep"){
-                jobs.push_back({jobId, pid, command, 0,background});
-                jobId++;
-            }
+            // if (command[0] == "sleep"){
+            //     jobs.push_back({jobId, pid, command, 0,background});
+            //     jobId++;
+            // }
             
             waitpid(pid, &status, 0);
 
