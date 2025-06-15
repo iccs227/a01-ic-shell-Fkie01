@@ -50,8 +50,11 @@ int executeCommand(const std::vector<std::string> &args, bool background) {
         }
         else {
             int status;
-            jobs.push_back({jobId, pid, command, 0,background});
-            jobId++;
+            if (command[0] == "sleep"){
+                jobs.push_back({jobId, pid, command, 0,background});
+                jobId++;
+            }
+            
             waitpid(pid, &status, 0);
 
             // std::cout << status << std::endl;
